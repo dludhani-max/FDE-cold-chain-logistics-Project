@@ -13,7 +13,7 @@ load_dotenv(project_root / ".env")
 
 data_path = project_root / "data" / "raw" / "dynamic_supply_chain_logistics_dataset.csv"
 
-db_host = os.getenv("SQL_SERVER_HOST", "localhost")
+db_host = os.getenv("SQL_SERVER_HOST") or "127.0.0.1"
 db_port = os.getenv("SQL_SERVER_PORT", "1433")
 db_user = os.getenv("SQL_ADMIN_USER")
 db_password = os.getenv("SQL_ADMIN_PASSWORD")
@@ -53,6 +53,12 @@ connection_string = (
         f"Encrypt=no;"
         f"TrustServerCertificate=yes;"
     )
+
+print("Host:", db_host)
+print("Port:", db_port)
+print("Database: master")
+print("Username:", db_user)
+print("Password configured:", bool(db_password))
 
 params = urllib.parse.quote_plus(connection_string)
 
