@@ -52,6 +52,13 @@ jobs:
             --command-id "$COMMAND_ID" \
             --instance-id "i-06124809c8b8b97cd"; then
             echo "Deployment completed successfully."
+            echo "========== EC2 DEPLOYMENT OUTPUT =========="
+            aws ssm get-command-invocation \
+              --command-id "$COMMAND_ID" \
+              --instance-id "i-06124809c8b8b97cd" \
+              --query 'StandardOutputContent' \
+              --output text
+            echo "==========================================="
           else
             echo "Deployment failed. Fetching command output..."
             aws ssm get-command-invocation \
