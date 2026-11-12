@@ -56,7 +56,7 @@ elif AGENT_LLM_SETTING == "DEEPSEEK":
 
 else:  # FALLBACK / DEFAULT RUNNER MODE
     print("🤗 Brain Mode: Local Fallback Activated. Binding Local Ollama (qwen2.5:7b)...")
-    from langchain_community.chat_models import ChatOllama
+    from langchain_ollama import ChatOllama
     llm = ChatOllama(model="qwen2.5:7b", temperature=0, num_predict=1024)
 
 fde_tools = [query_telemetry_db, fetch_corridor_conditions, search_compliance_sop]
@@ -101,7 +101,7 @@ if __name__ == "__main__":
     system_prompt = SystemMessage(content=system_instructions)
     
     thread_config = {"configurable": {"thread_id": "production_test_1"}}
-    fde_agent.update_state(thread_config, {"messages": [system_prompt]})
+    fde_agent.invoke({"messages": [system_prompt]}, config=thread_config)
     
     while True:
         user_input = input("\nDispatcher > ")
