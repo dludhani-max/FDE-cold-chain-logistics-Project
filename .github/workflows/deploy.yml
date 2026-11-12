@@ -42,7 +42,7 @@ jobs:
             --instance-ids "i-06124809c8b8b97cd" \
             --document-name "AWS-RunShellScript" \
             --comment "Cold Chain Logistics deployment" \
-            --parameters '{"commands":["set -e","cd /home/ubuntu/FDE-cold-chain-logistics-Project","sudo -u ubuntu git pull --ff-only origin main","sudo -u ubuntu /home/ubuntu/FDE-cold-chain-logistics-Project/.venv/bin/python -m pip install -r requirements.txt","sudo -u ubuntu /home/ubuntu/FDE-cold-chain-logistics-Project/.venv/bin/python -c '\''from src.orchestrator import fde_agent; print(\"Orchestrator import successful\")'\''","systemctl restart streamlit","systemctl is-active --quiet streamlit"]}' \
+            --parameters '{"commands":["set -e","cd /home/ubuntu/FDE-cold-chain-logistics-Project","sudo -u ubuntu git pull --ff-only origin main","sudo -u ubuntu /home/ubuntu/FDE-cold-chain-logistics-Project/.venv/bin/python -m pip install -r requirements.txt","sudo -u ubuntu /home/ubuntu/FDE-cold-chain-logistics-Project/.venv/bin/python -c '\''from src.orchestrator import fde_agent; print(\"Orchestrator import successful\")'\''","systemctl restart streamlit","systemctl is-active --quiet streamlit","curl --fail --silent --show-error --retry 10 --retry-delay 3 --retry-connrefused http://127.0.0.1:8501/_stcore/health"]}' \
             --query 'Command.CommandId' \
             --output text)
 
